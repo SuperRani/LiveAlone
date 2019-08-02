@@ -1,0 +1,1 @@
+{"version":3,"file":"Board.js","sourceRoot":"","sources":["Board.ts"],"names":[],"mappings":"","sourcesContent":["export interface Board {\n    bNum?: number;\n    bTitle: string;\n    bContent: string;\n    bId: string;\n}\n"]}
