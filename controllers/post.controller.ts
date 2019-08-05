@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 // DB
-import { connect } from '../database/database'
+import { connect} from '../database/database'
 
 // Interfaces
 import { Board } from '../interface/Board'
@@ -18,7 +18,7 @@ import {Pool} from "mysql2/promise";
                 const Board = await conn.query('CALL usp_get_board;');
                 console.log('Board 값'+ Board);
                 
-                return res.json(Board[0]);
+                // return res.json(Board[0]);
                 
             
             }catch (e) {

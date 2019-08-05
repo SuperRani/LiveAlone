@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 // DB
 const database_1 = require("../database/database");
-// import pool from '../database/database'
 class PostController {
     //get
     getPosts(req, res) {
@@ -20,7 +19,7 @@ class PostController {
                 // const sql =  `SELECT @RNUM := @RNUM + 1 AS NO, a.* FROM (SELECT * FROM board  ORDER BY bNum ASC ) a, ( SELECT @RNUM := 0 ) b`;
                 const Board = yield conn.query('CALL usp_get_board;');
                 console.log('Board 값' + Board);
-                return res.json(Board[0]);
+                // return res.json(Board[0]);
             }
             catch (e) {
                 console.log(e);

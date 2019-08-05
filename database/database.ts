@@ -4,25 +4,26 @@ import mysql, {Pool} from 'promise-mysql';
 import dbName from './mysql'
 
 export async function connect(): Promise<Pool> {
-    
+
     const pool = await mysql.createPool(dbName.database);
-    
-    
+
+
     pool.getConnection()
-        .then(connection => {
-            if (connection != null) {
-              
-                pool.releaseConnection(connection);
-            }
-            
-            
+                .then(connection => {
+                    if (connection) {
+                        pool.releaseConnection(connection);
+                    }
             console.log('DB IS CONNECTED');
-            
-        });
+});
+
     return pool;
-    
-    
+
+
 }
+
+
+
+
 
 // export async function connect(): Promise<Pool> {
 //     const mysql = require('mysql2');
