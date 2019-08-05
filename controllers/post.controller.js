@@ -7,106 +7,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const promise_1 = require("mysql2/promise");
-const mysql_1 = __importDefault(require("../database/mysql"));
-// class GamesController{
-//     public async getList (req:Request, res:Response): Promise<void>{
-//         const games = await pool.query('SELECT * FROM games');
-//         res.json(games);
-//     }
-//     public async getOne (req: Request,  res: Response): Promise<any>{
-//         const { id } = req.params;
-//         const game = await pool.query('SELECT * FROM games WHERE id = ?', [id]);
-//         if(game.length > 0){
-//             return res.json(game[0]);
-//         }
-//         res.status(404).json({text: "the game doesn't exists"});
-//     }
-//     public async create (req: Request, res: Response): Promise<void>{
-//         await pool.query('INSERT INTO games SET ?', [req.body]);
-//         res.json({message: 'juego Guardado'});
-//     }
-//     public async update (req: Request,  res: Response): Promise<void>{
-//         const { id } = req.params;
-//         await pool.query('UPDATE games SET ? WHERE id = ?', [req.body, id]);
-//         res.json({message: 'juego '+ [id] + ' ha sido actualizado'});
-//     }
-//     public async delete (req: Request, res: Response): Promise<void>{
-//         const { id } = req.params;
-//         await pool.query('DELETE FROM games WHERE id = ?', [id]);
-//         res.json({message: 'juego '+ [id] + ' ha sido eliminado'});
-//     }
-// }
-//
-// const gamesControllers = new GamesController();
-// export default gamesControllers;
-// //get
-// export async function getPosts(req: Request, res: Response): Promise<Response | void> {
-//     const conn = await connect();
-//
-//
-//     try {
-//          const sql = 'CALL usp_get_board;';
-//         // const sql =  `SELECT @RNUM := @RNUM + 1 AS NO, a.* FROM (SELECT * FROM board  ORDER BY bNum ASC ) a, ( SELECT @RNUM := 0 ) b`;
-//
-//         const Board = await conn.query(sql);
-//
-//         // console.log(Board[0]);
-//
-//
-//
-//        await conn.release;
-//         return res.json(Board[0]);
-//
-//
-//     }catch (e) {
-//         console.log(e);
-//
-//     }finally {
-//
-//     }
-//
-//
-//
-//
-// }
+// DB
+const database_1 = require("../database/database");
+// import pool from '../database/database'
 //get
 function getPosts(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        const conn = yield database_1.connect();
         try {
-            const pool = yield promise_1.createPool(mysql_1.default.database);
-            pool.getConnection()
-                .then(connection => {
-                const Board = connection.query('CALL usp_get_board;');
-                connection.release();
-                console.log('DB IS CONNECTED');
-                return res.json(Board);
-            });
+            // const sql =  `SELECT @RNUM := @RNUM + 1 AS NO, a.* FROM (SELECT * FROM board  ORDER BY bNum ASC ) a, ( SELECT @RNUM := 0 ) b`;
+            const Board = yield conn.query('CALL usp_get_board;');
+            return res.json(Board[0]);
         }
         catch (e) {
+            yield conn.end();
             console.log(e);
         }
-        // try {
-        //      const sql = 'CALL usp_get_board;';
-        //     // const sql =  `SELECT @RNUM := @RNUM + 1 AS NO, a.* FROM (SELECT * FROM board  ORDER BY bNum ASC ) a, ( SELECT @RNUM := 0 ) b`;
-        //
-        //     const Board = await conn.query(sql);
-        //
-        //     // console.log(Board[0]);
-        //
-        //
-        //     return res.json(Board[0]);
-        //
-        //
-        // }catch (e) {
-        //     console.log(e);
-        //
-        //
-        // }
     });
 }
 exports.getPosts = getPosts;
