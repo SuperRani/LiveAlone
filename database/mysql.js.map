@@ -1,1 +1,1 @@
-{"version":3,"file":"mysql.js","sourceRoot":"","sources":["mysql.ts"],"names":[],"mappings":"","sourcesContent":["\n"]}
+{"version":3,"file":"mysql.js","sourceRoot":"","sources":["mysql.ts"],"names":[],"mappings":";;AACA,kBAAc;IACV,QAAQ,EAAC;QACL,IAAI,EAAE,WAAW;QACjB,IAAI,EAAE,MAAM;QACZ,QAAQ,EAAE,MAAM;QAChB,QAAQ,EAAE,SAAS;QACnB,eAAe,EAAE,EAAE;KACtB;CACJ,CAAA","sourcesContent":["\nexport default{\n    database:{\n        host: 'localhost',\n        user: 'root',\n        password: '0000',\n        database: 'NewTest',\n        connectionLimit: 10\n    }\n}\n"]}

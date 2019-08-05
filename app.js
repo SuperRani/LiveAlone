@@ -34,7 +34,8 @@ class App {
     }
     routes() {
         this.app.use(index_routes_1.default);
-        this.app.use('/board', post_routes_1.default);
+        this.app.use('/' +
+            'board', post_routes_1.default);
     }
     listen() {
         return __awaiter(this, void 0, void 0, function* () {

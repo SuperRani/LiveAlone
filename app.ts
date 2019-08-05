@@ -29,7 +29,8 @@ export class App {
 
     private routes() {
         this.app.use(IndexRoutes);
-        this.app.use('/board', PostRoutes);
+        this.app.use('/' +
+            'board', PostRoutes);
     }
 
     async listen(): Promise<void> {
