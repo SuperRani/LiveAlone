@@ -1,17 +1,17 @@
 import { Router } from 'express'
-import { getPosts, createPost, getPost, deletePost, updatePost } from '../controllers/post.controller'
-
+import  {postController} from '../controllers/post.controller'
 const router = Router();
 
 router.route('/')
-    .get(getPosts)
-    .post(createPost);
+    
+    .get(postController.getPosts)
+    .post(postController.createPost);
     
 
 router.route('/:bNum')
-    .get(getPost)
-    .delete(deletePost)
-    .put(updatePost);
+    .get(postController.getPost)
+    .delete(postController.deletePost)
+    .put(postController.updatePost);
 
 export default router;
 

@@ -21,16 +21,16 @@ class App {
         this.port = port;
         this.app = express_1.default();
         this.settings();
-        this.middlewares();
+        this.middleware();
         this.routes();
     }
     settings() {
         this.app.set('port', this.port || process.env.PORT || 5000);
     }
-    middlewares() {
+    middleware() {
         this.app.use(morgan_1.default('dev'));
         this.app.use(express_1.default.json());
-        // this.app.use(express.urlencoded({extended: false}))
+        this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
         this.app.use(index_routes_1.default);

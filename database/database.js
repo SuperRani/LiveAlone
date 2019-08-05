@@ -11,18 +11,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const promise_1 = require("mysql2/promise");
+const promise_mysql_1 = __importDefault(require("promise-mysql"));
+// import {createPool,Pool} from 'mysql2/promise';
 const mysql_1 = __importDefault(require("./mysql"));
 function connect() {
     return __awaiter(this, void 0, void 0, function* () {
-        const pool = yield promise_1.createPool(mysql_1.default.database);
+        const pool = yield promise_mysql_1.default.createPool(mysql_1.default.database);
         pool.getConnection()
             .then(connection => {
             if (connection != null) {
-                connection.release();
-                connection.rollback();
+                pool.releaseConnection(connection);
             }
-            console.log('쓰레드아이디', connection.threadId);
             console.log('DB IS CONNECTED');
         });
         return pool;

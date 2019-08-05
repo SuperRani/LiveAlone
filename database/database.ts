@@ -1,28 +1,28 @@
 
-import mysql, {Connection} from 'promise-mysql';
-import {createPool,Pool} from 'mysql2/promise';
+import mysql, {Pool} from 'promise-mysql';
+// import {createPool,Pool} from 'mysql2/promise';
 import dbName from './mysql'
 
 export async function connect(): Promise<Pool> {
-
-    const pool = await createPool(dbName.database);
-
-
+    
+    const pool = await mysql.createPool(dbName.database);
+    
+    
     pool.getConnection()
-        .then(connection =>{
-        if(connection != null){
-            connection.release();
-            connection.rollback();
-        }
-        
-        console.log('쓰레드아이디', connection.threadId);
-        console.log('DB IS CONNECTED');
-        
-    });
+        .then(connection => {
+            if (connection != null) {
+              
+                pool.releaseConnection(connection);
+            }
+            
+            
+            console.log('DB IS CONNECTED');
+            
+        });
     return pool;
+    
+    
 }
-
-
 
 // export async function connect(): Promise<Pool> {
 //     const mysql = require('mysql2');

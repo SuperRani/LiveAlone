@@ -1,5 +1,6 @@
-import express, { Application } from 'express'
-import morgan from 'morgan'
+import express, { Application } from 'express';
+import morgan from 'morgan';
+
 
 // Routes
 import IndexRoutes from './routes/index.routes'
@@ -13,7 +14,7 @@ export class App {
     ) {
         this.app = express();
         this.settings();
-        this.middlewares();
+        this.middleware();
         this.routes();
     }
 
@@ -21,10 +22,10 @@ export class App {
         this.app.set('port', this.port || process.env.PORT || 5000);
     }
 
-    private middlewares() {
+    private middleware() {
         this.app.use(morgan('dev'));
         this.app.use(express.json());
-        // this.app.use(express.urlencoded({extended: false}))
+        this.app.use(express.urlencoded({extended: false}));
     }
 
     private routes() {

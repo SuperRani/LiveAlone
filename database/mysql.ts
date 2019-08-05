@@ -7,4 +7,4 @@ export default{
         database: 'NewTest',
         connectionLimit: 10
     }
-}
+};
