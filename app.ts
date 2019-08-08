@@ -1,7 +1,9 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
 
-
+const _connection = require('./controllers/post.controller');
+let connection = new _connection();
+import {Board} from "./interface/Board";
 // Routes
 import IndexRoutes from './routes/index.routes'
 import PostRoutes from './routes/post.routes'
@@ -30,8 +32,8 @@ export class App {
 
     private routes() {
         this.app.use(IndexRoutes);
-        this.app.use('/' +
-            'board', PostRoutes);
+    
+        this.app.use('/board', PostRoutes);
     }
 
     async listen(): Promise<void> {
@@ -40,3 +42,7 @@ export class App {
     }
 
 }
+
+
+
+

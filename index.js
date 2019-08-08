@@ -9,6 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = require("./app");
+// import {Board} from "./interface/Board";
+// const express = require('express');
+// const appEx = express();
+// const _connection = require('./controllers/post.controller');
+// let connection = new _connection();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = new app_1.App(5000);
@@ -16,4 +21,8 @@ function main() {
     });
 }
 main();
+// let mycp = new MyConnectionPool();
+// Object.defineProperty(global, 'mycp', {
+//     value: mycp
+// });
 //# sourceMappingURL=index.js.map

@@ -13,6 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
+const _connection = require('./controllers/post.controller');
+let connection = new _connection();
 // Routes
 const index_routes_1 = __importDefault(require("./routes/index.routes"));
 const post_routes_1 = __importDefault(require("./routes/post.routes"));
@@ -34,8 +36,7 @@ class App {
     }
     routes() {
         this.app.use(index_routes_1.default);
-        this.app.use('/' +
-            'board', post_routes_1.default);
+        this.app.use('/board', post_routes_1.default);
     }
     listen() {
         return __awaiter(this, void 0, void 0, function* () {
