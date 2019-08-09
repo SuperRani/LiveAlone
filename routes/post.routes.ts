@@ -3,11 +3,21 @@ import {Board} from "../interface/Board";
 
 const _connection = require('../controllers/post.controller');
 let connection = new _connection();
-
+import cors from "cors";
 
 
 
 const router = Router();
+const options:cors.CorsOptions = {
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+    credentials: true,
+    methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+    origin: 'http://localhost:4200/',
+    preflightContinue: false
+};
+
+router.use(cors(options));
+
 router.route('/')
 
     .get((req, res) => {
@@ -18,7 +28,7 @@ router.route('/')
             
             console.log('getData 파라미터 값은?',getDatas);
             result.release();
-            return res.json(getDatas[0]);
+            res.json(getDatas[0]);
        
             
             
@@ -26,10 +36,17 @@ router.route('/')
     });
     })
     .post((req, res) => {
-        
+
         connection.createConnection().then(result => {
-            const newBoard: Board = req.body;
-        connection.query([newBoard,result], 'CALL usp_add_board').then(postData => {
+            const bTitle = req.body.bTitle;
+            const bContent = req.body.bContent;
+            const bId = req.body.bId;
+            
+            console.log('bTitle, bContent, bId: 값은?? ',bTitle,bContent, bId );
+            
+            
+            // const newBoard: Board = req.body;
+        connection.query2(result, 'CALL usp_post_board(?,?,?)',[bTitle,bContent,bId]).then(postData => {
             return postData;
         }).then(postData => {
             console.log(postData);
@@ -37,17 +54,19 @@ router.route('/')
         })
     });
     });
-    
+
 
 
 router.route('/:bNum')
     .get((req, res) => {
-        connection.createConnection().then(result => {
         const bNum = req.params.bNum;
-        connection.query(result, 'SELECT * FROM board WHERE bNum = ?', [bNum]).then(getData => {
+        connection.createConnection().then(result => {
+        
+        connection.query2(result,`call usp_get_list_board(?)`, [bNum] ).then(getData => {
+            console.log('getData? :',getData);
             return getData;
         }).then(getData => {
-            console.log(getData);
+            console.log('getData 의 값은 머니',getData);
             result.release();
             res.json(getData[0]);
         })
@@ -56,7 +75,7 @@ router.route('/:bNum')
     .delete((req, res) => {
         connection.createConnection().then(result => {
         const bNum = req.params.bNum;
-        connection.query(result, 'DELETE FROM board WHERE bNum = ?', [bNum]).then(deleteData => {
+        connection.query2(result, 'call usp_delete_board(?)', [bNum]).then(deleteData => {
             return deleteData;
         }).then(deleteData => {
             console.log(deleteData);
@@ -66,9 +85,14 @@ router.route('/:bNum')
     })
     .put((req, res) => {
         connection.createConnection().then(result => {
+        
         const bNum = req.params.bNum;
+        const bTitle = req.body.bTitle;
+        const bContent = req.body.bContent;
+        const bId = req.body.bId;
+        
         const updateBoard: Board = req.body;
-        connection.query(result, 'UPDATE board set ? WHERE bNum = ?', [updateBoard, bNum]).then(putData => {
+        connection.query2(result, 'call usp_update_board(?,?,?,?)', [bNum, bTitle, bContent, bId]).then(putData => {
             return putData;
         }).then(putData => {
             console.log(putData);
@@ -76,25 +100,9 @@ router.route('/:bNum')
         })
     });
     });
-    
+
 
 export default router;
 
-
-
-
-// const router = Router();
-// router.route('/')
-//
-//     .get(postController.getPosts)
-//     .post(postController.createPost);
-//
-//
-// router.route('/:bNum')
-//     .get(postController.getPost)
-//     .delete(postController.deletePost)
-//     .put(postController.updatePost);
-//
-// export default router;
 
 

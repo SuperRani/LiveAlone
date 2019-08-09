@@ -18,6 +18,7 @@ let connection = new _connection();
 // Routes
 const index_routes_1 = __importDefault(require("./routes/index.routes"));
 const post_routes_1 = __importDefault(require("./routes/post.routes"));
+let app = express_1.default();
 class App {
     constructor(port) {
         this.port = port;
@@ -30,6 +31,21 @@ class App {
         this.app.set('port', this.port || process.env.PORT || 5000);
     }
     middleware() {
+        // app.use(cors());
+        // app.get('/board', function (req, res, next) {
+        //     res.setHeader('Access-Control-Allow-Origin', '*');
+        //     res.setHeader("Access-Control-Allow-Credentials", "true");
+        //     res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+        //     res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+        //     res.json({msg: 'This is CORS-enabled for all origins!'});
+        //
+        // });
+        // app.use(function(req, res, next) {
+        //
+        //     res.setHeader('Access-Control-Allow-Origin', '*');
+        //     next();
+        //
+        // });
         this.app.use(morgan_1.default('dev'));
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
@@ -40,6 +56,7 @@ class App {
     }
     listen() {
         return __awaiter(this, void 0, void 0, function* () {
+            // app.get('/products/:id', function (req, res, next) {}
             yield this.app.listen(this.app.get('port'));
             console.log('Server on port', this.app.get('port'));
         });

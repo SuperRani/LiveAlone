@@ -32,6 +32,15 @@ class PostController {
                 });
             });
         };
+        this.query2 = (connection, queryString, queryField) => {
+            return new Promise((resolve, reject) => {
+                connection.query(queryString, queryField, (err, result) => {
+                    if (err)
+                        reject(err);
+                    resolve(result);
+                });
+            });
+        };
         const mysql = require('mysql');
         this.pool = mysql.createPool({
             host: 'localhost',

@@ -60,6 +60,17 @@ class PostController implements MysqlImp {
             });
         })
     }
+    public query2 = (connection: any, queryString: string, queryField:string): Promise<any> => {
+        return new Promise((resolve, reject) => {
+            connection.query(queryString,queryField, (err, result) => {
+                if(err)
+                    reject(err);
+                resolve(result);
+            });
+        })
+    }
+
+    
 }
 
 export = PostController;

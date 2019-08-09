@@ -1,11 +1,6 @@
 import { App } from './app'
 
 
-// import {Board} from "./interface/Board";
-// const express = require('express');
-// const appEx = express();
-// const _connection = require('./controllers/post.controller');
-// let connection = new _connection();
 
 
 async function main() {
