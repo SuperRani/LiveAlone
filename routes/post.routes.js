@@ -1,21 +1,20 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const _connection = require('../controllers/post.controller');
 let connection = new _connection();
-const cors_1 = __importDefault(require("cors"));
 const router = express_1.Router();
-const options = {
-    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
-    credentials: true,
-    methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    origin: 'http://localhost:4200/',
-    preflightContinue: false
-};
-router.use(cors_1.default(options));
+// const options:cors.CorsOptions = {
+//     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+//     credentials: true,
+//     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+//     origin: 'http://localhost:4200/',
+//     preflightContinue: false
+// };
+//
+// router.use(cors(options));
+//
+// router.options("*", cors(options));
 router.route('/')
     .get((req, res) => {
     connection.createConnection().then(result => {

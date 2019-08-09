@@ -31,12 +31,12 @@ class App {
         this.app.set('port', this.port || process.env.PORT || 5000);
     }
     middleware() {
-        app.use(cors_1.default());
+        // app.use(cors());
         const options = {
             allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
             credentials: true,
             methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-            origin: 'http://localhost:5000/',
+            origin: 'http://localhost:5000/board',
             preflightContinue: false
         };
         router.use(cors_1.default(options));

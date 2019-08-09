@@ -8,15 +8,6 @@ import cors from "cors";
 
 
 const router = Router();
-const options:cors.CorsOptions = {
-    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
-    credentials: true,
-    methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    origin: 'http://localhost:4200/',
-    preflightContinue: false
-};
-
-router.use(cors(options));
 
 router.route('/')
 
