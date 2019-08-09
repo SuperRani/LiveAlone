@@ -1,19 +1,20 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
+import cors from "cors";
+import { Router } from 'express'
 
-const _connection = require('./controllers/post.controller');
-let connection = new _connection();
-import {Board} from "./interface/Board";
+
 // Routes
 import IndexRoutes from './routes/index.routes'
 import PostRoutes from './routes/post.routes'
 
 
 let app = express();
-
+let router =  express.Router();
 
 
 export class App {
+    
     app: Application;
 
     constructor(
@@ -30,8 +31,24 @@ export class App {
     }
 
     private middleware() {
-        // app.use(cors());
+        app.use(cors());
+    
+    
+        const options:cors.CorsOptions = {
+            allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+            credentials: true,
+            methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+            origin: 'http://localhost:5000/',
+            preflightContinue: false
+        };
         
+        router.use(cors(options));
+    
+        router.options("*", cors(options));
+    
+    
+    
+    
         // app.get('/board', function (req, res, next) {
         //     res.setHeader('Access-Control-Allow-Origin', '*');
         //     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -60,7 +77,7 @@ export class App {
 
     async listen(): Promise<void> {
        
-        // app.get('/products/:id', function (req, res, next) {}
+     
         
         await this.app.listen(this.app.get('port'));
         console.log('Server on port', this.app.get('port'));
